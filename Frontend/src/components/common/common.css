@@ -1,0 +1,55 @@
+/* src/components/common/common.css */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}
+
+.btn-md {
+  padding: 12px 24px;
+  font-size: 1rem;
+}
+
+.btn-lg {
+  padding: 18px 50px;
+  font-size: 1.2rem;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.loading-spinner {
+  border: 3px solid var(--border-color);
+  border-top-color: var(--python-blue-light);
+  border-radius: 50%;
+  animation: rotate 0.8s linear infinite;
+}
+
+.loading-sm .loading-spinner {
+  width: 20px;
+  height: 20px;
+}
+
+.loading-md .loading-spinner {
+  width: 36px;
+  height: 36px;
+}
+
+.loading-lg .loading-spinner {
+  width: 52px;
+  height: 52px;
+}
+
+.loading-text {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}

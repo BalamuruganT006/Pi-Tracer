@@ -1,0 +1,59 @@
+/* src/components/Layout/Layout.css */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10, 10, 15, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-primary);
+}
+
+.header-logo {
+  font-size: 1.5rem;
+}
+
+.header-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #306998 0%, #61dafb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--python-blue-light);
+}
+
+.app-footer {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border-light);
+}

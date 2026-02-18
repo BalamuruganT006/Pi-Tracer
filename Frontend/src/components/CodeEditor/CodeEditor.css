@@ -1,0 +1,83 @@
+/* src/components/CodeEditor/CodeEditor.css */
+.monaco-editor-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-light);
+}
+
+.editor-header {
+  padding: 12px 20px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.editor-filename {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.editor-hint {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.editor-wrapper {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.editor-toolbar {
+  padding: 12px 20px;
+  background: var(--bg-tertiary);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  gap: 10px;
+}
+
+.run-btn {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #306998 0%, #61dafb 100%);
+  border: none;
+  border-radius: var(--radius-md);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.run-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(48, 105, 152, 0.3);
+}
+
+.run-icon {
+  font-size: 0.8rem;
+}
+
+.clear-btn {
+  padding: 10px 16px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-btn:hover {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}

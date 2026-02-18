@@ -1,0 +1,33 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.venv/
+max/
+
+# Environment files
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Distribution
+dist/
+build/
+*.egg-info/
+
+# Testing
+.pytest_cache/
+htmlcov/
+.coverage
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Firebase credentials
+firebase-service-account.json

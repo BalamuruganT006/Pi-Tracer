@@ -1,0 +1,50 @@
+/* src/components/Landing3D/Landing3D.css */
+.pi-symbol-3d {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0f 100%);
+}
+
+.pi-overlay {
+  position: absolute;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.pi-title {
+  font-size: 5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #306998 0%, #61dafb 50%, #FFD43B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 60px rgba(48, 105, 152, 0.5);
+  letter-spacing: -2px;
+}
+
+.pi-subtitle {
+  font-size: 1.3rem;
+  color: #888;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .pi-title {
+    font-size: 3rem;
+  }
+  
+  .pi-subtitle {
+    font-size: 1rem;
+  }
+}
