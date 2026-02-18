@@ -3,7 +3,7 @@ import { useRef, useCallback } from 'react'
 import Editor from '@monaco-editor/react'
 import './CodeEditor.css'
 
-const defaultCode = `# Welcome to Pi-Tracer!
+export const defaultCode = `# Welcome to Pi-Tracer!
 # Write your Python code here and visualize execution
 
 def factorial(n):

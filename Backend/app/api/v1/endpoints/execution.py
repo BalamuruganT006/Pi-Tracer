@@ -3,51 +3,41 @@
 from __future__ import annotations
 
 import json
-from typing import Any, AsyncGenerator, Dict, Optional
+import threading
+from typing import Any, Dict, Generator, Optional
 
-from fastapi import APIRouter, BackgroundTasks, Header, HTTPException, Request
-from fastapi.responses import StreamingResponse
+from flask import Blueprint, Response, request, jsonify
 
 from app.models.execution import (
     ExecutionMetadata,
     ExecutionRequest,
     ExecutionResponse,
 )
-from app.services.auth import auth_service, AuthError
+from app.dependencies import extract_uid
 from app.services.executor import execution_service
 from app.services.session_manager import session_manager
 from app.utils.logger import get_logger
 
 logger = get_logger(__name__)
-router = APIRouter()
+execution_bp = Blueprint("execution", __name__)
 
 
-def _extract_uid(authorization: Optional[str]) -> Optional[str]:
-    """Best-effort UID extraction – returns None for unauthenticated."""
-    if not authorization or not authorization.startswith("Bearer "):
-        return None
-    try:
-        decoded = auth_service.verify_token(authorization.split("Bearer ")[1])
-        return decoded.get("uid")
-    except AuthError:
-        return None
-
-
-@router.post("/execute", response_model=ExecutionResponse)
-async def execute_code(
-    request: Request,
-    execution_request: ExecutionRequest,
-    background_tasks: BackgroundTasks,
-    authorization: Optional[str] = Header(None),
-) -> ExecutionResponse:
+@execution_bp.route("/execute", methods=["POST"])
+def execute_code():
     """Execute Python code and return the complete execution trace."""
-    uid = _extract_uid(authorization)
-    client_ip = request.client.host if request.client else "unknown"
-    user_agent = request.headers.get("user-agent", "")
+    data = request.get_json(force=True)
+    try:
+        execution_request = ExecutionRequest(**data)
+    except Exception as exc:
+        return jsonify(error=str(exc)), 422
+
+    uid = extract_uid()
+    client_ip = request.remote_addr or "unknown"
+    user_agent = request.headers.get("User-Agent", "")
 
     metadata = ExecutionMetadata(ip_address=client_ip, user_agent=user_agent)
 
-    result = await execution_service.execute(
+    result = execution_service.execute(
         execution_request.code,
         execution_request.user_input or "",
         execution_request.session_id,
@@ -70,38 +60,37 @@ async def execute_code(
         metadata=metadata,
     )
 
-    if result.trace_data:
-        background_tasks.add_task(
-            session_manager.store_session,
-            response.session_id,
-            execution_request.code,
-            result,
-            uid,
-        )
-
-    return response
+    return jsonify(response.model_dump(mode="json"))
 
 
-@router.post("/execute/simple")
-async def execute_simple(request: ExecutionRequest) -> Dict[str, Any]:
+@execution_bp.route("/execute/simple", methods=["POST"])
+def execute_simple():
     """Execute code without tracing (faster, for simple validation)."""
-    result = await execution_service.execute(
-        request.code, request.user_input or ""
+    data = request.get_json(force=True)
+    try:
+        req = ExecutionRequest(**data)
+    except Exception as exc:
+        return jsonify(error=str(exc)), 422
+
+    result = execution_service.execute(
+        req.code, req.user_input or ""
     )
-    return {
-        "success": result.success,
-        "output": result.stdout,
-        "error": result.error,
-        "execution_time": result.execution_time,
-    }
+    return jsonify(
+        success=result.success,
+        output=result.stdout,
+        error=result.error,
+        execution_time=result.execution_time,
+    )
 
 
-@router.get("/execute/stream")
-async def execute_stream(code: str, user_input: str = "") -> StreamingResponse:
+@execution_bp.route("/execute/stream")
+def execute_stream():
     """Server-sent events endpoint for streaming execution."""
+    code = request.args.get("code", "")
+    user_input = request.args.get("user_input", "")
 
-    async def event_generator() -> AsyncGenerator[str, None]:
-        result = await execution_service.execute(code, user_input)
+    def event_generator() -> Generator[str, None, None]:
+        result = execution_service.execute(code, user_input)
 
         if result.trace_data:
             for i, step in enumerate(result.trace_data.steps):
@@ -117,4 +106,4 @@ async def execute_stream(code: str, user_input: str = "") -> StreamingResponse:
             f"data: {json.dumps({'type': 'done', 'execution_time': result.execution_time})}\n\n"
         )
 
-    return StreamingResponse(event_generator(), media_type="text/event-stream")
+    return Response(event_generator(), mimetype="text/event-stream")

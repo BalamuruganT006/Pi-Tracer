@@ -2,50 +2,52 @@
 
 from __future__ import annotations
 
+import asyncio
 from typing import Any, Dict, Optional
 
-from fastapi import APIRouter, Header, HTTPException
+from flask import Blueprint, request, jsonify
 
-from app.services.auth import auth_service, AuthError
+from app.dependencies import extract_uid
 from app.services.session_manager import session_manager
 
-router = APIRouter()
+sessions_bp = Blueprint("sessions", __name__)
 
 
-def _extract_uid(authorization: Optional[str]) -> Optional[str]:
-    if not authorization or not authorization.startswith("Bearer "):
-        return None
+def _run(coro):
+    """Run an async coroutine from synchronous Flask context."""
     try:
-        decoded = auth_service.verify_token(authorization.split("Bearer ")[1])
-        return decoded.get("uid")
-    except AuthError:
-        return None
+        loop = asyncio.get_event_loop()
+        if loop.is_running():
+            import concurrent.futures
+            with concurrent.futures.ThreadPoolExecutor() as pool:
+                return pool.submit(asyncio.run, coro).result()
+        return loop.run_until_complete(coro)
+    except RuntimeError:
+        return asyncio.run(coro)
 
 
-@router.get("/sessions/{session_id}")
-async def get_session(session_id: str):
+@sessions_bp.route("/sessions/<session_id>")
+def get_session(session_id: str):
     """Retrieve a stored execution session."""
-    session = await session_manager.get_session(session_id)
+    session = _run(session_manager.get_session(session_id))
     if not session:
-        raise HTTPException(status_code=404, detail="Session not found")
-    return session
+        return jsonify(error="Session not found"), 404
+    return jsonify(session.model_dump(mode="json"))
 
 
-@router.delete("/sessions/{session_id}")
-async def delete_session(session_id: str):
+@sessions_bp.route("/sessions/<session_id>", methods=["DELETE"])
+def delete_session(session_id: str):
     """Delete an execution session."""
-    success = await session_manager.delete_session(session_id)
+    success = _run(session_manager.delete_session(session_id))
     if not success:
-        raise HTTPException(status_code=404, detail="Session not found")
-    return {"deleted": True}
+        return jsonify(error="Session not found"), 404
+    return jsonify(deleted=True)
 
 
-@router.get("/sessions")
-async def list_sessions(
-    limit: int = 50,
-    authorization: Optional[str] = Header(None),
-):
+@sessions_bp.route("/sessions")
+def list_sessions():
     """List recent sessions (filtered by user when authenticated)."""
-    uid = _extract_uid(authorization)
-    sessions = await session_manager.list_sessions(limit, uid=uid)
-    return {"sessions": [s.model_dump() for s in sessions]}
+    limit = request.args.get("limit", 50, type=int)
+    uid = extract_uid()
+    sessions = _run(session_manager.list_sessions(limit, uid=uid))
+    return jsonify(sessions=[s.model_dump(mode="json") for s in sessions])

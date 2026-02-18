@@ -68,27 +68,29 @@ http://localhost:8000/api/v1
 
 ---
 
-## WebSocket
+## WebSocket (Socket.IO)
 
 ### Execute (streaming)
 
+Connect via Socket.IO to `http://localhost:8000` with query params:
+
 ```
-ws://localhost:8000/ws/execute?session_id=...&streaming=true
+?session_id=...&streaming=true
 ```
 
-**Send:**
+**Emit event `execute`:**
 
 ```json
-{ "action": "execute", "code": "print('hi')", "user_input": "" }
+{ "code": "print('hi')", "user_input": "" }
 ```
 
-**Receive (per step):**
+**Receive `message` events (per step):**
 
 ```json
 { "type": "step", "data": { "step": 1, "line": 1, "code": "print('hi')", ... } }
 ```
 
-**Receive (completion):**
+**Receive `message` (completion):**
 
 ```json
 { "type": "complete", "success": true, "stdout": "hi\n", "execution_time": 0.02 }
@@ -96,11 +98,8 @@ ws://localhost:8000/ws/execute?session_id=...&streaming=true
 
 ### Collaborate
 
-```
-ws://localhost:8000/ws/collaborate/{room_id}
-```
-
-Broadcasts JSON messages to all other participants in the room.
+Emit `join_room` with `{ "room_id": "<room_id>" }` to join.
+Emit `broadcast` with `{ "room_id": "<room_id>", "data": { ... } }` to broadcast.
 
 ---
 
@@ -108,10 +107,13 @@ Broadcasts JSON messages to all other participants in the room.
 
 ```bash
 # Development
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+python -m app.main
 
-# Production
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
+# Or with flask CLI
+flask --app app.main:app run --host 0.0.0.0 --port 8000 --reload
+
+# Production (gunicorn)
+gunicorn --worker-class gevent -w 4 -b 0.0.0.0:8000 app.main:app
 
 # Docker
 docker-compose -f docker/docker-compose.yml up --build

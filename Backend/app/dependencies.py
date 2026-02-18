@@ -1,35 +1,43 @@
-"""FastAPI dependencies – shared across routes."""
+"""Flask helpers  shared across routes."""
 
-from typing import Annotated, Dict, Any
+from typing import Dict, Any, Optional
+from functools import wraps
 
-from fastapi import Depends, Header, HTTPException
+from flask import request, jsonify, abort
 
 from app.services.auth import auth_service, AuthError
-from app.services.executor import ExecutionService, execution_service
-from app.services.session_manager import SessionManager, session_manager
+from app.services.executor import execution_service
+from app.services.session_manager import session_manager
 
 
-async def get_session_manager() -> SessionManager:
+def get_session_manager():
     return session_manager
 
 
-async def get_executor() -> ExecutionService:
+def get_executor():
     return execution_service
 
 
-async def get_current_user(
-    authorization: str = Header(None),
-) -> Dict[str, Any]:
+def get_current_user() -> Dict[str, Any]:
     """Verify the Firebase ID token from the Authorization header."""
+    authorization = request.headers.get("Authorization")
     if not authorization or not authorization.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="Missing or invalid Authorization header")
+        abort(401, description="Missing or invalid Authorization header")
     token = authorization.split("Bearer ")[1]
     try:
         return auth_service.verify_token(token)
     except AuthError as exc:
-        raise HTTPException(status_code=401, detail=str(exc))
+        abort(401, description=str(exc))
 
 
-SessionManagerDep = Annotated[SessionManager, Depends(get_session_manager)]
-ExecutorDep = Annotated[ExecutionService, Depends(get_executor)]
-CurrentUserDep = Annotated[Dict[str, Any], Depends(get_current_user)]
+def extract_uid(authorization: Optional[str] = None) -> Optional[str]:
+    """Best-effort UID extraction  returns None for unauthenticated."""
+    if authorization is None:
+        authorization = request.headers.get("Authorization")
+    if not authorization or not authorization.startswith("Bearer "):
+        return None
+    try:
+        decoded = auth_service.verify_token(authorization.split("Bearer ")[1])
+        return decoded.get("uid")
+    except AuthError:
+        return None

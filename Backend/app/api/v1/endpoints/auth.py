@@ -2,47 +2,76 @@
 
 from __future__ import annotations
 
+import asyncio
 from typing import Any, Dict
 
-from fastapi import APIRouter, HTTPException
+from flask import Blueprint, request, jsonify, abort
 
 from app.models.user import SignUpRequest, SignInRequest, AuthResponse, UserProfile
 from app.services.auth import auth_service, AuthError
 
-router = APIRouter()
+auth_bp = Blueprint("auth", __name__)
 
 
-@router.post("/auth/signup", response_model=AuthResponse)
-async def sign_up(request: SignUpRequest) -> AuthResponse:
+def _run(coro):
+    """Run an async coroutine from synchronous Flask context."""
+    try:
+        loop = asyncio.get_event_loop()
+        if loop.is_running():
+            import concurrent.futures
+            with concurrent.futures.ThreadPoolExecutor() as pool:
+                return pool.submit(asyncio.run, coro).result()
+        return loop.run_until_complete(coro)
+    except RuntimeError:
+        return asyncio.run(coro)
+
+
+@auth_bp.route("/auth/signup", methods=["POST"])
+def sign_up():
     """Register a new user with email & password."""
+    data = request.get_json(force=True)
     try:
-        result = await auth_service.sign_up(
-            email=request.email,
-            password=request.password,
-            display_name=request.display_name,
-        )
-        return AuthResponse(**result)
+        req = SignUpRequest(**data)
+    except Exception as exc:
+        return jsonify(error=str(exc)), 422
+
+    try:
+        result = _run(auth_service.sign_up(
+            email=req.email,
+            password=req.password,
+            display_name=req.display_name,
+        ))
+        return jsonify(AuthResponse(**result).model_dump())
     except AuthError as exc:
-        raise HTTPException(status_code=400, detail=str(exc))
+        return jsonify(error=str(exc)), 400
 
 
-@router.post("/auth/signin", response_model=AuthResponse)
-async def sign_in(request: SignInRequest) -> AuthResponse:
+@auth_bp.route("/auth/signin", methods=["POST"])
+def sign_in():
     """Sign in with email & password."""
+    data = request.get_json(force=True)
     try:
-        result = await auth_service.sign_in(
-            email=request.email,
-            password=request.password,
-        )
-        return AuthResponse(**result)
+        req = SignInRequest(**data)
+    except Exception as exc:
+        return jsonify(error=str(exc)), 422
+
+    try:
+        result = _run(auth_service.sign_in(
+            email=req.email,
+            password=req.password,
+        ))
+        return jsonify(AuthResponse(**result).model_dump())
     except AuthError as exc:
-        raise HTTPException(status_code=401, detail=str(exc))
+        return jsonify(error=str(exc)), 401
 
 
-@router.get("/auth/profile")
-async def get_profile(uid: str) -> Dict[str, Any]:
+@auth_bp.route("/auth/profile")
+def get_profile():
     """Get the authenticated user's profile."""
-    profile = await auth_service.get_user_profile(uid)
+    uid = request.args.get("uid")
+    if not uid:
+        return jsonify(error="uid query parameter required"), 400
+    profile = _run(auth_service.get_user_profile(uid))
     if not profile:
-        raise HTTPException(status_code=404, detail="User not found")
-    return profile
+        return jsonify(error="User not found"), 404
+    return jsonify(profile)

@@ -1,13 +1,12 @@
-"""Main execution orchestrator with process isolation & streaming."""
+"""Main execution orchestrator with process isolation."""
 
 from __future__ import annotations
 
-import asyncio
 import multiprocessing
 import time
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ProcessPoolExecutor, TimeoutError as FuturesTimeoutError
 from dataclasses import dataclass
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 from app.config import settings
 from app.core.trace_collector import TraceCollector
@@ -106,26 +105,25 @@ def _execute_in_subprocess(
 
 
 # ------------------------------------------------------------------
-# Service class
+# Service class (fully synchronous for Flask)
 # ------------------------------------------------------------------
 
 class ExecutionService:
-    """Main execution service with process isolation and streaming."""
+    """Main execution service with process isolation."""
 
     def __init__(self) -> None:
         self.process_pool = ProcessPoolExecutor(
             max_workers=settings.WORKERS,
             mp_context=multiprocessing.get_context("spawn"),
         )
-        self.active_executions: Dict[str, asyncio.Task] = {}
 
-    async def execute(
+    def execute(
         self,
         code: str,
         user_input: str = "",
         session_id: Optional[str] = None,
     ) -> ExecutionResult:
-        """Execute code with full trace collection."""
+        """Execute code with full trace collection (synchronous)."""
         start_time = time.time()
 
         # Quick syntax check before spawning a process
@@ -142,18 +140,14 @@ class ExecutionService:
                 status=ExecutionStatus.ERROR,
             )
 
-        loop = asyncio.get_event_loop()
         try:
-            future = loop.run_in_executor(
-                self.process_pool,
+            future = self.process_pool.submit(
                 _execute_in_subprocess,
                 code,
                 user_input,
                 settings.MAX_STEPS,
             )
-            result = await asyncio.wait_for(
-                future, timeout=settings.MAX_EXECUTION_TIME
-            )
+            result = future.result(timeout=settings.MAX_EXECUTION_TIME)
             execution_time = time.time() - start_time
 
             if result["status"] == ExecutionStatus.SECURITY_VIOLATION:
@@ -177,7 +171,7 @@ class ExecutionService:
                 status=result["status"],
             )
 
-        except asyncio.TimeoutError:
+        except FuturesTimeoutError:
             return ExecutionResult(
                 success=False,
                 trace_data=None,
@@ -200,18 +194,18 @@ class ExecutionService:
                 status=ExecutionStatus.ERROR,
             )
 
-    async def execute_streaming(
+    def execute_streaming(
         self,
         code: str,
         user_input: str,
         callback: Callable[[Dict[str, Any]], Any],
     ) -> ExecutionResult:
         """Execute with streaming step updates via *callback*."""
-        result = await self.execute(code, user_input)
+        result = self.execute(code, user_input)
 
         if result.trace_data:
             for i, step in enumerate(result.trace_data.steps):
-                await callback(
+                callback(
                     {
                         "type": "step",
                         "step_number": i + 1,
@@ -219,9 +213,8 @@ class ExecutionService:
                         "data": step.model_dump(),
                     }
                 )
-                await asyncio.sleep(0.01)
 
-        await callback(
+        callback(
             {
                 "type": "complete",
                 "success": result.success,
@@ -232,12 +225,6 @@ class ExecutionService:
         )
 
         return result
-
-    async def cancel_execution(self, session_id: str) -> bool:
-        if session_id in self.active_executions:
-            self.active_executions[session_id].cancel()
-            return True
-        return False
 
     def shutdown(self) -> None:
         self.process_pool.shutdown(wait=True)

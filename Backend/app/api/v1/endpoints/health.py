@@ -2,43 +2,42 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter
-from fastapi.responses import Response
+from flask import Blueprint, Response, jsonify
 
 from app.config import settings
 
-router = APIRouter()
+health_bp = Blueprint("health", __name__)
 
 
-@router.get("/health")
-async def health_check():
-    return {
-        "status": "healthy",
-        "service": settings.APP_NAME,
-        "version": settings.VERSION,
-        "environment": settings.ENVIRONMENT,
-    }
+@health_bp.route("/health")
+def health_check():
+    return jsonify(
+        status="healthy",
+        service=settings.APP_NAME,
+        version=settings.VERSION,
+        environment=settings.ENVIRONMENT,
+    )
 
 
-@router.get("/ready")
-async def readiness_check():
-    return {
-        "ready": True,
-        "checks": {
+@health_bp.route("/ready")
+def readiness_check():
+    return jsonify(
+        ready=True,
+        checks={
             "executor": "ok",
             "memory": "ok",
         },
-    }
+    )
 
 
-@router.get("/metrics")
-async def metrics():
+@health_bp.route("/metrics")
+def metrics():
     try:
         from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 
         return Response(
-            content=generate_latest(),
-            media_type=CONTENT_TYPE_LATEST,
+            response=generate_latest(),
+            content_type=CONTENT_TYPE_LATEST,
         )
     except ImportError:
-        return {"error": "prometheus_client not installed"}
+        return jsonify(error="prometheus_client not installed")

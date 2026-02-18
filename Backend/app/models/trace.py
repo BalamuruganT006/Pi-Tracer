@@ -5,7 +5,22 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_serializer
+
+
+def _safe_serialize(v: Any) -> Any:
+    """Convert non-JSON-serializable values to strings."""
+    if v is None or isinstance(v, (str, int, float, bool)):
+        return v
+    if isinstance(v, (list, tuple)):
+        return [_safe_serialize(item) for item in v]
+    if isinstance(v, dict):
+        return {str(k): _safe_serialize(val) for k, val in v.items()}
+    # Functions, classes, instances, etc.
+    try:
+        return str(v)
+    except Exception:
+        return repr(v)
 
 
 class VariableType(str, Enum):
@@ -36,6 +51,11 @@ class Variable(BaseModel):
     length: Optional[int] = None
     repr: str = Field("", description="String representation for display")
 
+    @field_serializer("value")
+    @classmethod
+    def serialize_value(cls, v: Any) -> Any:
+        return _safe_serialize(v)
+
 
 class HeapObject(BaseModel):
     id: int
@@ -48,6 +68,11 @@ class HeapObject(BaseModel):
     references: List[int] = Field(
         default_factory=list, description="Referenced heap IDs"
     )
+
+    @field_serializer("value")
+    @classmethod
+    def serialize_value(cls, v: Any) -> Any:
+        return _safe_serialize(v)
 
 
 class Frame(BaseModel):
@@ -72,7 +97,7 @@ class ExecutionEvent(str, Enum):
 
 class ExecutionStep(BaseModel):
     step: int = Field(..., ge=0)
-    line: int = Field(..., ge=1)
+    line: int = Field(..., ge=0)
     code: str = Field(..., description="Source code line")
     event: ExecutionEvent
     event_data: Optional[Dict[str, Any]] = None

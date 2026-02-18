@@ -18,11 +18,15 @@ class Settings(BaseSettings):
     PORT: int = 8000
     WORKERS: int = 4
 
-    # Security
+    # Flask
     SECRET_KEY: str = "your-secret-key-change-in-production"
+
+    # Security
     ALLOWED_HOSTS: List[str] = ["*"]
     CORS_ORIGINS: List[str] = [
         "http://localhost:5173",
+        "http://localhost:5174",
+        "http://localhost:5175",
         "http://localhost:3000",
         "https://pytutor3d.com",
     ]

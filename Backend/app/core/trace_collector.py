@@ -301,7 +301,8 @@ class TraceCollector:
         patterns = [
             "trace_collector.py", "executor.py", "sandbox.py",
             "importlib", "<frozen", "collections", "typing",
-            "abc.py", "dataclasses.py",
+            "abc.py", "dataclasses.py", "multiprocessing", "spawn",
+            "concurrent", "threading", "runpy",
         ]
         return any(p in filename for p in patterns)
 
@@ -314,17 +315,31 @@ class TraceCollector:
             frame = frame.f_back
         return frames
 
+    # Internal names to filter from locals (injected by multiprocessing/spawn)
+    _INTERNAL_NAMES = frozenset([
+        "spawn_main", "_main", "freeze_support", "set_start_method",
+        "Process", "Queue", "pool", "_fork", "_forkserver",
+    ])
+
     def _create_frame(self, frame: types.FrameType) -> Frame:
         code = frame.f_code
         locals_dict: Dict[str, Variable] = {}
         for name, value in frame.f_locals.items():
-            if not name.startswith("__") and not name.endswith("__"):
-                locals_dict[name] = self._create_variable(name, value)
+            # Skip dunder names and internal multiprocessing names
+            if name.startswith("__") or name.endswith("__"):
+                continue
+            if name in self._INTERNAL_NAMES:
+                continue
+            if callable(value) and hasattr(value, "__module__") and value.__module__ and "multiprocessing" in value.__module__:
+                continue
+            locals_dict[name] = self._create_variable(name, value)
 
         globals_names = {
             name: name
             for name in frame.f_globals
-            if not name.startswith("__") and not name.endswith("__")
+            if not name.startswith("__") 
+            and not name.endswith("__")
+            and name not in self._INTERNAL_NAMES
         }
 
         return Frame(

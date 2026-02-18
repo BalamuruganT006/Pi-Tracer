@@ -1,80 +1,47 @@
 // src/pages/TutorPage.jsx
 import { useState } from 'react'
-import MonacoEditor from '../components/CodeEditor/MonacoEditor'
+import MonacoEditor, { defaultCode } from '../components/CodeEditor/MonacoEditor'
 import PythonTutorVis from '../components/Visualizer/PythonTutorVis'
+import { executeCode } from '../services/api'
 import './pages.css'
 
-// Mock trace data for demonstration
-const mockTrace = {
-  code: 'x = [1, 2, 3]\nfor i in x:\n    print(i)',
-  total_steps: 5,
-  steps: [
-    {
-      step: 1,
-      line: 1,
-      code: 'x = [1, 2, 3]',
-      event: 'line',
-      frames: [{
-        name: '<module>',
-        line: 1,
-        locals: {
-          x: { name: 'x', type: 'list', repr: '[1, 2, 3]', is_mutable: true }
-        },
-        globals: []
-      }],
-      heap: [{ id: 1, type: 'list', repr: '[1, 2, 3]', size: 88 }],
-      stdout: ''
-    },
-    {
-      step: 2,
-      line: 2,
-      code: 'for i in x:',
-      event: 'line',
-      frames: [{
-        name: '<module>',
-        line: 2,
-        locals: {
-          x: { name: 'x', type: 'list', repr: '[1, 2, 3]', is_mutable: true },
-          i: { name: 'i', type: 'int', repr: '1' }
-        },
-        globals: []
-      }],
-      heap: [{ id: 1, type: 'list', repr: '[1, 2, 3]', size: 88 }],
-      stdout: ''
-    },
-    {
-      step: 3,
-      line: 3,
-      code: '    print(i)',
-      event: 'line',
-      frames: [{
-        name: '<module>',
-        line: 3,
-        locals: {
-          x: { name: 'x', type: 'list', repr: '[1, 2, 3]', is_mutable: true },
-          i: { name: 'i', type: 'int', repr: '1' }
-        },
-        globals: []
-      }],
-      heap: [{ id: 1, type: 'list', repr: '[1, 2, 3]', size: 88 }],
-      stdout: '1\n'
-    }
-  ]
-}
-
 export default function TutorPage() {
-  const [code, setCode] = useState('')
+  const [code, setCode] = useState(defaultCode)
   const [currentStep, setCurrentStep] = useState(1)
   const [trace, setTrace] = useState(null)
   const [isRunning, setIsRunning] = useState(false)
+  const [error, setError] = useState(null)
 
   const handleRun = async () => {
+    if (!code?.trim()) return
+
     setIsRunning(true)
-    // Simulate API call
-    await new Promise(r => setTimeout(r, 500))
-    setTrace(mockTrace)
-    setCurrentStep(1)
-    setIsRunning(false)
+    setError(null)
+    setTrace(null)
+
+    try {
+      const result = await executeCode(code)
+
+      if (result.error) {
+        setError(result.error)
+      }
+
+      if (result.steps && result.steps.length > 0) {
+        setTrace({
+          code: code,
+          total_steps: result.total_steps,
+          steps: result.steps,
+          stdout: result.stdout || '',
+        })
+        setCurrentStep(1)
+      } else if (!result.error) {
+        setError('No execution steps returned')
+      }
+    } catch (err) {
+      setError(`Connection error: ${err.message}`)
+    } finally {
+      setIsRunning(false)
+    }
   }
 
   return (
@@ -86,7 +53,8 @@ export default function TutorPage() {
         </div>
         <div className="tutor-actions">
           {isRunning && <span className="running-indicator">Running...</span>}
-          <button className="btn btn-secondary" onClick={() => setTrace(null)}>
+          {error && <span className="error-indicator" title={error}>⚠ Error</span>}
+          <button className="btn btn-secondary" onClick={() => { setTrace(null); setError(null) }}>
             Reset
           </button>
         </div>
@@ -104,6 +72,12 @@ export default function TutorPage() {
           onStepChange={setCurrentStep}
         />
       </main>
+
+      {error && (
+        <div className="error-banner">
+          <strong>Error:</strong> {error}
+        </div>
+      )}
     </div>
   )
 }

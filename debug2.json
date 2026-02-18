@@ -1,0 +1,1364 @@
+﻿{
+  "current_step": 11,
+  "error": null,
+  "execution_time": 2.026315927505493,
+  "metadata": {
+    "execution_time_ms": null,
+    "ip_address": "127.0.0.1",
+    "memory_usage_mb": null,
+    "timestamp": "2026-02-18T05:12:04.002512",
+    "user_agent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.7705"
+  },
+  "session_id": "new-session",
+  "status": "completed",
+  "stderr": null,
+  "stdout": "5\n",
+  "steps": [
+    {
+      "code": "x=5",
+      "event": "start",
+      "event_data": null,
+      "exception": null,
+      "frames": [
+        {
+          "filename": "<string>",
+          "globals": {},
+          "is_module_level": true,
+          "line": 1,
+          "locals": {},
+          "name": "<module>"
+        }
+      ],
+      "heap": [],
+      "line": 1,
+      "memory_usage": null,
+      "stdout": "",
+      "step": 0,
+      "timestamp": null
+    },
+    {
+      "code": "",
+      "event": "call",
+      "event_data": {
+        "function": "<module>"
+      },
+      "exception": null,
+      "frames": [
+        {
+          "filename": "<string>",
+          "globals": {
+            "spawn_main": "spawn_main"
+          },
+          "is_module_level": true,
+          "line": 1,
+          "locals": {},
+          "name": "<module>"
+        },
+        {
+          "filename": "<string>",
+          "globals": {},
+          "is_module_level": true,
+          "line": 0,
+          "locals": {},
+          "name": "<module>"
+        }
+      ],
+      "heap": [],
+      "line": 0,
+      "memory_usage": null,
+      "stdout": "",
+      "step": 1,
+      "timestamp": 0.00023865699768066406
+    },
+    {
+      "code": "x=5",
+      "event": "line",
+      "event_data": {},
+      "exception": null,
+      "frames": [
+        {
+          "filename": "<string>",
+          "globals": {
+            "spawn_main": "spawn_main"
+          },
+          "is_module_level": true,
+          "line": 1,
+          "locals": {},
+          "name": "<module>"
+        },
+        {
+          "filename": "<string>",
+          "globals": {},
+          "is_module_level": true,
+          "line": 1,
+          "locals": {},
+          "name": "<module>"
+        }
+      ],
+      "heap": [],
+      "line": 1,
+      "memory_usage": null,
+      "stdout": "",
+      "step": 2,
+      "timestamp": 0.0002770423889160156
+    },
+    {
+      "code": "print(x)",
+      "event": "line",
+      "event_data": {},
+      "exception": null,
+      "frames": [
+        {
+          "filename": "<string>",
+          "globals": {
+            "spawn_main": "spawn_main"
+          },
+          "is_module_level": true,
+          "line": 1,
+          "locals": {},
+          "name": "<module>"
+        },
+        {
+          "filename": "<string>",
+          "globals": {
+            "x": "x"
+          },
+          "is_module_level": true,
+          "line": 2,
+          "locals": {
+            "x": {
+              "id": null,
+              "is_mutable": false,
+              "is_sequence": false,
+              "length": null,
+              "name": "x",
+              "repr": "5",
+              "type": "int",
+              "type_str": "int",
+              "value": 5
+            }
+          },
+          "name": "<module>"
+        }
+      ],
+      "heap": [],
+      "line": 2,
+      "memory_usage": null,
+      "stdout": "",
+      "step": 3,
+      "timestamp": 0.0003368854522705078
+    },
+    {
+      "code": "print(x)",
+      "event": "return",
+      "event_data": {
+        "return_value": null
+      },
+      "exception": null,
+      "frames": [
+        {
+          "filename": "<string>",
+          "globals": {
+            "spawn_main": "spawn_main"
+          },
+          "is_module_level": true,
+          "line": 1,
+          "locals": {},
+          "name": "<module>"
+        },
+        {
+          "filename": "<string>",
+          "globals": {
+            "x": "x"
+          },
+          "is_module_level": true,
+          "line": 2,
+          "locals": {
+            "x": {
+              "id": null,
+              "is_mutable": false,
+              "is_sequence": false,
+              "length": null,
+              "name": "x",
+              "repr": "5",
+              "type": "int",
+              "type_str": "int",
+              "value": 5
+            }
+          },
+          "name": "<module>"
+        }
+      ],
+      "heap": [],
+      "line": 2,
+      "memory_usage": null,
+      "stdout": "5\n",
+      "step": 4,
+      "timestamp": 0.0004029273986816406
+    },
+    {
+      "code": "",
+      "event": "call",
+      "event_data": {
+        "function": "__init__"
+      },
+      "exception": null,
+      "frames": [
+        {
+          "filename": "<string>",
+          "globals": {
+            "spawn_main": "spawn_main"
+          },
+          "is_module_level": true,
+          "line": 1,
+          "locals": {},
+          "name": "<module>"
+        },
+        {
+          "filename": "D:\\code\\Pi-Tracer\\.venv\\Lib\\site-packages\\pydantic\\main.py",
+          "globals": {
+            "AliasChoices": "AliasChoices",
+            "AliasPath": "AliasPath",
+            "Any": "Any",
+            "BaseModel": "BaseModel",
+            "Callable": "Callable",
+            "ClassVar": "ClassVar",
+            "ConfigDict": "ConfigDict",
+            "DEFAULT_REF_TEMPLATE": "DEFAULT_REF_TEMPLATE",
+            "Dict": "Dict",
+            "ExtraValues": "ExtraValues",
+            "GenerateJsonSchema": "GenerateJsonSchema",
+            "Generator": "Generator",
+            "Generic": "Generic",
+            "GetCoreSchemaHandler": "GetCoreSchemaHandler",
+            "GetJsonSchemaHandler": "GetJsonSchemaHandler",
+            "IncEx": "IncEx",
+            "JsonSchemaMode": "JsonSchemaMode",
+            "JsonSchemaValue": "JsonSchemaValue",
+            "Literal": "Literal",
+            "Mapping": "Mapping",
+            "ModelT": "ModelT",
+            "PluggableSchemaValidator": "PluggableSchemaValidator",
+            "PydanticDeprecatedSince20": "PydanticDeprecatedSince20",
+            "PydanticDeprecatedSince211": "PydanticDeprecatedSince211",
+            "PydanticUndefined": "PydanticUndefined",
+            "PydanticUndefinedAnnotation": "PydanticUndefinedAnnotation",
+            "PydanticUserError": "PydanticUserError",
+            "Self": "Self",
+            "TYPE_CHECKING": "TYPE_CHECKING",
+            "TupleGenerator": "TupleGenerator",
+            "TypeAlias": "TypeAlias",
+            "TypeVar": "TypeVar",
+            "Union": "Union",
+            "Unpack": "Unpack",
+            "ValidationError": "ValidationError",
+            "_SIMPLE_SETATTR_HANDLERS": "_SIMPLE_SETATTR_HANDLERS",
+            "_annotations": "_annotations",
+            "_check_frozen": "_check_frozen",
+            "_config": "_config",
+            "_decorators": "_decorators",
+            "_fields": "_fields",
+            "_forward_ref": "_forward_ref",
+            "_generics": "_generics",
+            "_mock_val_ser": "_mock_val_ser",
+            "_model_construction": "_model_construction",
+            "_model_field_setattr_handler": "_model_field_setattr_handler",
+            "_namespace_utils": "_namespace_utils",
+            "_object_setattr": "_object_setattr",
+            "_private_setattr_handler": "_private_setattr_handler",
+            "_repr": "_repr",
+            "_typing_extra": "_typing_extra",
+            "_utils": "_utils",
+            "cached_property": "cached_property",
+            "cast": "cast",
+            "copy": "copy",
+            "create_model": "create_model",
+            "deepcopy": "deepcopy",
+            "getattr_migration": "getattr_migration",
+            "model_json_schema": "model_json_schema",
+            "operator": "operator",
+            "overload": "overload",
+            "pydantic_core": "pydantic_core",
+            "sys": "sys",
+            "types": "types",
+            "typing_extensions": "typing_extensions",
+            "warnings": "warnings"
+          },
+          "is_module_level": false,
+          "line": 240,
+          "locals": {
+            "data": {
+              "id": 2,
+              "is_mutable": true,
+              "is_sequence": false,
+              "length": 7,
+              "name": "data",
+              "repr": "<dict ref=2>",
+              "type": "dict",
+              "type_str": "dict",
+              "value": "ref:2"
+            },
+            "self": {
+              "id": 1,
+              "is_mutable": false,
+              "is_sequence": false,
+              "length": null,
+              "name": "self",
+              "repr": "<ExecutionStep ref=1>",
+              "type": "instance",
+              "type_str": "ExecutionStep",
+              "value": "ref:1"
+            }
+          },
+          "name": "__init__"
+        }
+      ],
+      "heap": [
+        {
+          "id": 1,
+          "length": null,
+          "references": [],
+          "repr": "<ExecutionStep object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "ExecutionStep",
+          "value": {
+            "class": "ExecutionStep"
+          }
+        },
+        {
+          "id": 4,
+          "length": null,
+          "references": [],
+          "repr": "<Frame object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "Frame",
+          "value": {
+            "class": "Frame"
+          }
+        },
+        {
+          "id": 5,
+          "length": null,
+          "references": [],
+          "repr": "<Frame object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "Frame",
+          "value": {
+            "class": "Frame"
+          }
+        },
+        {
+          "id": 3,
+          "length": 2,
+          "references": [
+            4,
+            5
+          ],
+          "repr": "[Frame(name='<module>', line=1, filename='<string>', locals={}, globals={'spawn_main': 'spawn_main'}, is_module_level=True), Frame(name='<module>', line=2, filename='<string>', locals={'x': Variable(n",
+          "size": 72,
+          "type": "list",
+          "type_str": "list",
+          "value": [
+            {
+              "__ref__": 4,
+              "__type__": "instance"
+            },
+            {
+              "__ref__": 5,
+              "__type__": "instance"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "length": 0,
+          "references": [],
+          "repr": "[]",
+          "size": 56,
+          "type": "list",
+          "type_str": "list",
+          "value": []
+        },
+        {
+          "id": 2,
+          "length": 7,
+          "references": [
+            3,
+            6
+          ],
+          "repr": "{'step': 5, 'line': 2, 'code': '', 'event': <ExecutionEvent.END: 'end'>, 'frames': [Frame(name='<module>', line=1, filename='<string>', locals={}, globals={'spawn_main': 'spawn_main'}, is_module_level",
+          "size": 272,
+          "type": "dict",
+          "type_str": "dict",
+          "value": {
+            "code": "",
+            "event": "ExecutionEvent.END",
+            "frames": {
+              "__ref__": 3,
+              "__type__": "list"
+            },
+            "heap": {
+              "__ref__": 6,
+              "__type__": "list"
+            },
+            "line": 2,
+            "stdout": "",
+            "step": 5
+          }
+        }
+      ],
+      "line": 240,
+      "memory_usage": null,
+      "stdout": "",
+      "step": 5,
+      "timestamp": 0.0007636547088623047
+    },
+    {
+      "code": "",
+      "event": "line",
+      "event_data": {},
+      "exception": null,
+      "frames": [
+        {
+          "filename": "<string>",
+          "globals": {
+            "spawn_main": "spawn_main"
+          },
+          "is_module_level": true,
+          "line": 1,
+          "locals": {},
+          "name": "<module>"
+        },
+        {
+          "filename": "D:\\code\\Pi-Tracer\\.venv\\Lib\\site-packages\\pydantic\\main.py",
+          "globals": {
+            "AliasChoices": "AliasChoices",
+            "AliasPath": "AliasPath",
+            "Any": "Any",
+            "BaseModel": "BaseModel",
+            "Callable": "Callable",
+            "ClassVar": "ClassVar",
+            "ConfigDict": "ConfigDict",
+            "DEFAULT_REF_TEMPLATE": "DEFAULT_REF_TEMPLATE",
+            "Dict": "Dict",
+            "ExtraValues": "ExtraValues",
+            "GenerateJsonSchema": "GenerateJsonSchema",
+            "Generator": "Generator",
+            "Generic": "Generic",
+            "GetCoreSchemaHandler": "GetCoreSchemaHandler",
+            "GetJsonSchemaHandler": "GetJsonSchemaHandler",
+            "IncEx": "IncEx",
+            "JsonSchemaMode": "JsonSchemaMode",
+            "JsonSchemaValue": "JsonSchemaValue",
+            "Literal": "Literal",
+            "Mapping": "Mapping",
+            "ModelT": "ModelT",
+            "PluggableSchemaValidator": "PluggableSchemaValidator",
+            "PydanticDeprecatedSince20": "PydanticDeprecatedSince20",
+            "PydanticDeprecatedSince211": "PydanticDeprecatedSince211",
+            "PydanticUndefined": "PydanticUndefined",
+            "PydanticUndefinedAnnotation": "PydanticUndefinedAnnotation",
+            "PydanticUserError": "PydanticUserError",
+            "Self": "Self",
+            "TYPE_CHECKING": "TYPE_CHECKING",
+            "TupleGenerator": "TupleGenerator",
+            "TypeAlias": "TypeAlias",
+            "TypeVar": "TypeVar",
+            "Union": "Union",
+            "Unpack": "Unpack",
+            "ValidationError": "ValidationError",
+            "_SIMPLE_SETATTR_HANDLERS": "_SIMPLE_SETATTR_HANDLERS",
+            "_annotations": "_annotations",
+            "_check_frozen": "_check_frozen",
+            "_config": "_config",
+            "_decorators": "_decorators",
+            "_fields": "_fields",
+            "_forward_ref": "_forward_ref",
+            "_generics": "_generics",
+            "_mock_val_ser": "_mock_val_ser",
+            "_model_construction": "_model_construction",
+            "_model_field_setattr_handler": "_model_field_setattr_handler",
+            "_namespace_utils": "_namespace_utils",
+            "_object_setattr": "_object_setattr",
+            "_private_setattr_handler": "_private_setattr_handler",
+            "_repr": "_repr",
+            "_typing_extra": "_typing_extra",
+            "_utils": "_utils",
+            "cached_property": "cached_property",
+            "cast": "cast",
+            "copy": "copy",
+            "create_model": "create_model",
+            "deepcopy": "deepcopy",
+            "getattr_migration": "getattr_migration",
+            "model_json_schema": "model_json_schema",
+            "operator": "operator",
+            "overload": "overload",
+            "pydantic_core": "pydantic_core",
+            "sys": "sys",
+            "types": "types",
+            "typing_extensions": "typing_extensions",
+            "warnings": "warnings"
+          },
+          "is_module_level": false,
+          "line": 249,
+          "locals": {
+            "data": {
+              "id": 2,
+              "is_mutable": true,
+              "is_sequence": false,
+              "length": 7,
+              "name": "data",
+              "repr": "<dict ref=2>",
+              "type": "dict",
+              "type_str": "dict",
+              "value": "ref:2"
+            },
+            "self": {
+              "id": 1,
+              "is_mutable": false,
+              "is_sequence": false,
+              "length": null,
+              "name": "self",
+              "repr": "<ExecutionStep ref=1>",
+              "type": "instance",
+              "type_str": "ExecutionStep",
+              "value": "ref:1"
+            }
+          },
+          "name": "__init__"
+        }
+      ],
+      "heap": [
+        {
+          "id": 1,
+          "length": null,
+          "references": [],
+          "repr": "<ExecutionStep object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "ExecutionStep",
+          "value": {
+            "class": "ExecutionStep"
+          }
+        },
+        {
+          "id": 4,
+          "length": null,
+          "references": [],
+          "repr": "<Frame object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "Frame",
+          "value": {
+            "class": "Frame"
+          }
+        },
+        {
+          "id": 5,
+          "length": null,
+          "references": [],
+          "repr": "<Frame object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "Frame",
+          "value": {
+            "class": "Frame"
+          }
+        },
+        {
+          "id": 3,
+          "length": 2,
+          "references": [
+            4,
+            5
+          ],
+          "repr": "[Frame(name='<module>', line=1, filename='<string>', locals={}, globals={'spawn_main': 'spawn_main'}, is_module_level=True), Frame(name='<module>', line=2, filename='<string>', locals={'x': Variable(n",
+          "size": 72,
+          "type": "list",
+          "type_str": "list",
+          "value": [
+            {
+              "__ref__": 4,
+              "__type__": "instance"
+            },
+            {
+              "__ref__": 5,
+              "__type__": "instance"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "length": 0,
+          "references": [],
+          "repr": "[]",
+          "size": 56,
+          "type": "list",
+          "type_str": "list",
+          "value": []
+        },
+        {
+          "id": 2,
+          "length": 7,
+          "references": [
+            3,
+            6
+          ],
+          "repr": "{'step': 5, 'line': 2, 'code': '', 'event': <ExecutionEvent.END: 'end'>, 'frames': [Frame(name='<module>', line=1, filename='<string>', locals={}, globals={'spawn_main': 'spawn_main'}, is_module_level",
+          "size": 272,
+          "type": "dict",
+          "type_str": "dict",
+          "value": {
+            "code": "",
+            "event": "ExecutionEvent.END",
+            "frames": {
+              "__ref__": 3,
+              "__type__": "list"
+            },
+            "heap": {
+              "__ref__": 6,
+              "__type__": "list"
+            },
+            "line": 2,
+            "stdout": "",
+            "step": 5
+          }
+        }
+      ],
+      "line": 249,
+      "memory_usage": null,
+      "stdout": "",
+      "step": 6,
+      "timestamp": 0.0008637905120849609
+    },
+    {
+      "code": "",
+      "event": "line",
+      "event_data": {},
+      "exception": null,
+      "frames": [
+        {
+          "filename": "<string>",
+          "globals": {
+            "spawn_main": "spawn_main"
+          },
+          "is_module_level": true,
+          "line": 1,
+          "locals": {},
+          "name": "<module>"
+        },
+        {
+          "filename": "D:\\code\\Pi-Tracer\\.venv\\Lib\\site-packages\\pydantic\\main.py",
+          "globals": {
+            "AliasChoices": "AliasChoices",
+            "AliasPath": "AliasPath",
+            "Any": "Any",
+            "BaseModel": "BaseModel",
+            "Callable": "Callable",
+            "ClassVar": "ClassVar",
+            "ConfigDict": "ConfigDict",
+            "DEFAULT_REF_TEMPLATE": "DEFAULT_REF_TEMPLATE",
+            "Dict": "Dict",
+            "ExtraValues": "ExtraValues",
+            "GenerateJsonSchema": "GenerateJsonSchema",
+            "Generator": "Generator",
+            "Generic": "Generic",
+            "GetCoreSchemaHandler": "GetCoreSchemaHandler",
+            "GetJsonSchemaHandler": "GetJsonSchemaHandler",
+            "IncEx": "IncEx",
+            "JsonSchemaMode": "JsonSchemaMode",
+            "JsonSchemaValue": "JsonSchemaValue",
+            "Literal": "Literal",
+            "Mapping": "Mapping",
+            "ModelT": "ModelT",
+            "PluggableSchemaValidator": "PluggableSchemaValidator",
+            "PydanticDeprecatedSince20": "PydanticDeprecatedSince20",
+            "PydanticDeprecatedSince211": "PydanticDeprecatedSince211",
+            "PydanticUndefined": "PydanticUndefined",
+            "PydanticUndefinedAnnotation": "PydanticUndefinedAnnotation",
+            "PydanticUserError": "PydanticUserError",
+            "Self": "Self",
+            "TYPE_CHECKING": "TYPE_CHECKING",
+            "TupleGenerator": "TupleGenerator",
+            "TypeAlias": "TypeAlias",
+            "TypeVar": "TypeVar",
+            "Union": "Union",
+            "Unpack": "Unpack",
+            "ValidationError": "ValidationError",
+            "_SIMPLE_SETATTR_HANDLERS": "_SIMPLE_SETATTR_HANDLERS",
+            "_annotations": "_annotations",
+            "_check_frozen": "_check_frozen",
+            "_config": "_config",
+            "_decorators": "_decorators",
+            "_fields": "_fields",
+            "_forward_ref": "_forward_ref",
+            "_generics": "_generics",
+            "_mock_val_ser": "_mock_val_ser",
+            "_model_construction": "_model_construction",
+            "_model_field_setattr_handler": "_model_field_setattr_handler",
+            "_namespace_utils": "_namespace_utils",
+            "_object_setattr": "_object_setattr",
+            "_private_setattr_handler": "_private_setattr_handler",
+            "_repr": "_repr",
+            "_typing_extra": "_typing_extra",
+            "_utils": "_utils",
+            "cached_property": "cached_property",
+            "cast": "cast",
+            "copy": "copy",
+            "create_model": "create_model",
+            "deepcopy": "deepcopy",
+            "getattr_migration": "getattr_migration",
+            "model_json_schema": "model_json_schema",
+            "operator": "operator",
+            "overload": "overload",
+            "pydantic_core": "pydantic_core",
+            "sys": "sys",
+            "types": "types",
+            "typing_extensions": "typing_extensions",
+            "warnings": "warnings"
+          },
+          "is_module_level": false,
+          "line": 250,
+          "locals": {
+            "data": {
+              "id": 2,
+              "is_mutable": true,
+              "is_sequence": false,
+              "length": 7,
+              "name": "data",
+              "repr": "<dict ref=2>",
+              "type": "dict",
+              "type_str": "dict",
+              "value": "ref:2"
+            },
+            "self": {
+              "id": 1,
+              "is_mutable": false,
+              "is_sequence": false,
+              "length": null,
+              "name": "self",
+              "repr": "<ExecutionStep ref=1>",
+              "type": "instance",
+              "type_str": "ExecutionStep",
+              "value": "ref:1"
+            }
+          },
+          "name": "__init__"
+        }
+      ],
+      "heap": [
+        {
+          "id": 1,
+          "length": null,
+          "references": [],
+          "repr": "<ExecutionStep object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "ExecutionStep",
+          "value": {
+            "class": "ExecutionStep"
+          }
+        },
+        {
+          "id": 4,
+          "length": null,
+          "references": [],
+          "repr": "<Frame object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "Frame",
+          "value": {
+            "class": "Frame"
+          }
+        },
+        {
+          "id": 5,
+          "length": null,
+          "references": [],
+          "repr": "<Frame object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "Frame",
+          "value": {
+            "class": "Frame"
+          }
+        },
+        {
+          "id": 3,
+          "length": 2,
+          "references": [
+            4,
+            5
+          ],
+          "repr": "[Frame(name='<module>', line=1, filename='<string>', locals={}, globals={'spawn_main': 'spawn_main'}, is_module_level=True), Frame(name='<module>', line=2, filename='<string>', locals={'x': Variable(n",
+          "size": 72,
+          "type": "list",
+          "type_str": "list",
+          "value": [
+            {
+              "__ref__": 4,
+              "__type__": "instance"
+            },
+            {
+              "__ref__": 5,
+              "__type__": "instance"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "length": 0,
+          "references": [],
+          "repr": "[]",
+          "size": 56,
+          "type": "list",
+          "type_str": "list",
+          "value": []
+        },
+        {
+          "id": 2,
+          "length": 7,
+          "references": [
+            3,
+            6
+          ],
+          "repr": "{'step': 5, 'line': 2, 'code': '', 'event': <ExecutionEvent.END: 'end'>, 'frames': [Frame(name='<module>', line=1, filename='<string>', locals={}, globals={'spawn_main': 'spawn_main'}, is_module_level",
+          "size": 272,
+          "type": "dict",
+          "type_str": "dict",
+          "value": {
+            "code": "",
+            "event": "ExecutionEvent.END",
+            "frames": {
+              "__ref__": 3,
+              "__type__": "list"
+            },
+            "heap": {
+              "__ref__": 6,
+              "__type__": "list"
+            },
+            "line": 2,
+            "stdout": "",
+            "step": 5
+          }
+        }
+      ],
+      "line": 250,
+      "memory_usage": null,
+      "stdout": "",
+      "step": 7,
+      "timestamp": 0.0009377002716064453
+    },
+    {
+      "code": "",
+      "event": "line",
+      "event_data": {},
+      "exception": null,
+      "frames": [
+        {
+          "filename": "<string>",
+          "globals": {
+            "spawn_main": "spawn_main"
+          },
+          "is_module_level": true,
+          "line": 1,
+          "locals": {},
+          "name": "<module>"
+        },
+        {
+          "filename": "D:\\code\\Pi-Tracer\\.venv\\Lib\\site-packages\\pydantic\\main.py",
+          "globals": {
+            "AliasChoices": "AliasChoices",
+            "AliasPath": "AliasPath",
+            "Any": "Any",
+            "BaseModel": "BaseModel",
+            "Callable": "Callable",
+            "ClassVar": "ClassVar",
+            "ConfigDict": "ConfigDict",
+            "DEFAULT_REF_TEMPLATE": "DEFAULT_REF_TEMPLATE",
+            "Dict": "Dict",
+            "ExtraValues": "ExtraValues",
+            "GenerateJsonSchema": "GenerateJsonSchema",
+            "Generator": "Generator",
+            "Generic": "Generic",
+            "GetCoreSchemaHandler": "GetCoreSchemaHandler",
+            "GetJsonSchemaHandler": "GetJsonSchemaHandler",
+            "IncEx": "IncEx",
+            "JsonSchemaMode": "JsonSchemaMode",
+            "JsonSchemaValue": "JsonSchemaValue",
+            "Literal": "Literal",
+            "Mapping": "Mapping",
+            "ModelT": "ModelT",
+            "PluggableSchemaValidator": "PluggableSchemaValidator",
+            "PydanticDeprecatedSince20": "PydanticDeprecatedSince20",
+            "PydanticDeprecatedSince211": "PydanticDeprecatedSince211",
+            "PydanticUndefined": "PydanticUndefined",
+            "PydanticUndefinedAnnotation": "PydanticUndefinedAnnotation",
+            "PydanticUserError": "PydanticUserError",
+            "Self": "Self",
+            "TYPE_CHECKING": "TYPE_CHECKING",
+            "TupleGenerator": "TupleGenerator",
+            "TypeAlias": "TypeAlias",
+            "TypeVar": "TypeVar",
+            "Union": "Union",
+            "Unpack": "Unpack",
+            "ValidationError": "ValidationError",
+            "_SIMPLE_SETATTR_HANDLERS": "_SIMPLE_SETATTR_HANDLERS",
+            "_annotations": "_annotations",
+            "_check_frozen": "_check_frozen",
+            "_config": "_config",
+            "_decorators": "_decorators",
+            "_fields": "_fields",
+            "_forward_ref": "_forward_ref",
+            "_generics": "_generics",
+            "_mock_val_ser": "_mock_val_ser",
+            "_model_construction": "_model_construction",
+            "_model_field_setattr_handler": "_model_field_setattr_handler",
+            "_namespace_utils": "_namespace_utils",
+            "_object_setattr": "_object_setattr",
+            "_private_setattr_handler": "_private_setattr_handler",
+            "_repr": "_repr",
+            "_typing_extra": "_typing_extra",
+            "_utils": "_utils",
+            "cached_property": "cached_property",
+            "cast": "cast",
+            "copy": "copy",
+            "create_model": "create_model",
+            "deepcopy": "deepcopy",
+            "getattr_migration": "getattr_migration",
+            "model_json_schema": "model_json_schema",
+            "operator": "operator",
+            "overload": "overload",
+            "pydantic_core": "pydantic_core",
+            "sys": "sys",
+            "types": "types",
+            "typing_extensions": "typing_extensions",
+            "warnings": "warnings"
+          },
+          "is_module_level": false,
+          "line": 251,
+          "locals": {
+            "data": {
+              "id": 2,
+              "is_mutable": true,
+              "is_sequence": false,
+              "length": 7,
+              "name": "data",
+              "repr": "<dict ref=2>",
+              "type": "dict",
+              "type_str": "dict",
+              "value": "ref:2"
+            },
+            "self": {
+              "id": 1,
+              "is_mutable": false,
+              "is_sequence": false,
+              "length": null,
+              "name": "self",
+              "repr": "<ExecutionStep ref=1>",
+              "type": "instance",
+              "type_str": "ExecutionStep",
+              "value": "ref:1"
+            },
+            "validated_self": {
+              "id": 1,
+              "is_mutable": false,
+              "is_sequence": false,
+              "length": null,
+              "name": "validated_self",
+              "repr": "<ExecutionStep ref=1>",
+              "type": "instance",
+              "type_str": "ExecutionStep",
+              "value": "ref:1"
+            }
+          },
+          "name": "__init__"
+        }
+      ],
+      "heap": [
+        {
+          "id": 1,
+          "length": null,
+          "references": [],
+          "repr": "<ExecutionStep object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "ExecutionStep",
+          "value": {
+            "class": "ExecutionStep"
+          }
+        },
+        {
+          "id": 4,
+          "length": null,
+          "references": [],
+          "repr": "<Frame object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "Frame",
+          "value": {
+            "class": "Frame"
+          }
+        },
+        {
+          "id": 5,
+          "length": null,
+          "references": [],
+          "repr": "<Frame object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "Frame",
+          "value": {
+            "class": "Frame"
+          }
+        },
+        {
+          "id": 3,
+          "length": 2,
+          "references": [
+            4,
+            5
+          ],
+          "repr": "[Frame(name='<module>', line=1, filename='<string>', locals={}, globals={'spawn_main': 'spawn_main'}, is_module_level=True), Frame(name='<module>', line=2, filename='<string>', locals={'x': Variable(n",
+          "size": 72,
+          "type": "list",
+          "type_str": "list",
+          "value": [
+            {
+              "__ref__": 4,
+              "__type__": "instance"
+            },
+            {
+              "__ref__": 5,
+              "__type__": "instance"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "length": 0,
+          "references": [],
+          "repr": "[]",
+          "size": 56,
+          "type": "list",
+          "type_str": "list",
+          "value": []
+        },
+        {
+          "id": 2,
+          "length": 7,
+          "references": [
+            3,
+            6
+          ],
+          "repr": "{'step': 5, 'line': 2, 'code': '', 'event': <ExecutionEvent.END: 'end'>, 'frames': [Frame(name='<module>', line=1, filename='<string>', locals={}, globals={'spawn_main': 'spawn_main'}, is_module_level",
+          "size": 272,
+          "type": "dict",
+          "type_str": "dict",
+          "value": {
+            "code": "",
+            "event": "ExecutionEvent.END",
+            "frames": {
+              "__ref__": 3,
+              "__type__": "list"
+            },
+            "heap": {
+              "__ref__": 6,
+              "__type__": "list"
+            },
+            "line": 2,
+            "stdout": "",
+            "step": 5
+          }
+        }
+      ],
+      "line": 251,
+      "memory_usage": null,
+      "stdout": "",
+      "step": 8,
+      "timestamp": 0.0010271072387695312
+    },
+    {
+      "code": "",
+      "event": "return",
+      "event_data": {
+        "return_value": null
+      },
+      "exception": null,
+      "frames": [
+        {
+          "filename": "<string>",
+          "globals": {
+            "spawn_main": "spawn_main"
+          },
+          "is_module_level": true,
+          "line": 1,
+          "locals": {},
+          "name": "<module>"
+        },
+        {
+          "filename": "D:\\code\\Pi-Tracer\\.venv\\Lib\\site-packages\\pydantic\\main.py",
+          "globals": {
+            "AliasChoices": "AliasChoices",
+            "AliasPath": "AliasPath",
+            "Any": "Any",
+            "BaseModel": "BaseModel",
+            "Callable": "Callable",
+            "ClassVar": "ClassVar",
+            "ConfigDict": "ConfigDict",
+            "DEFAULT_REF_TEMPLATE": "DEFAULT_REF_TEMPLATE",
+            "Dict": "Dict",
+            "ExtraValues": "ExtraValues",
+            "GenerateJsonSchema": "GenerateJsonSchema",
+            "Generator": "Generator",
+            "Generic": "Generic",
+            "GetCoreSchemaHandler": "GetCoreSchemaHandler",
+            "GetJsonSchemaHandler": "GetJsonSchemaHandler",
+            "IncEx": "IncEx",
+            "JsonSchemaMode": "JsonSchemaMode",
+            "JsonSchemaValue": "JsonSchemaValue",
+            "Literal": "Literal",
+            "Mapping": "Mapping",
+            "ModelT": "ModelT",
+            "PluggableSchemaValidator": "PluggableSchemaValidator",
+            "PydanticDeprecatedSince20": "PydanticDeprecatedSince20",
+            "PydanticDeprecatedSince211": "PydanticDeprecatedSince211",
+            "PydanticUndefined": "PydanticUndefined",
+            "PydanticUndefinedAnnotation": "PydanticUndefinedAnnotation",
+            "PydanticUserError": "PydanticUserError",
+            "Self": "Self",
+            "TYPE_CHECKING": "TYPE_CHECKING",
+            "TupleGenerator": "TupleGenerator",
+            "TypeAlias": "TypeAlias",
+            "TypeVar": "TypeVar",
+            "Union": "Union",
+            "Unpack": "Unpack",
+            "ValidationError": "ValidationError",
+            "_SIMPLE_SETATTR_HANDLERS": "_SIMPLE_SETATTR_HANDLERS",
+            "_annotations": "_annotations",
+            "_check_frozen": "_check_frozen",
+            "_config": "_config",
+            "_decorators": "_decorators",
+            "_fields": "_fields",
+            "_forward_ref": "_forward_ref",
+            "_generics": "_generics",
+            "_mock_val_ser": "_mock_val_ser",
+            "_model_construction": "_model_construction",
+            "_model_field_setattr_handler": "_model_field_setattr_handler",
+            "_namespace_utils": "_namespace_utils",
+            "_object_setattr": "_object_setattr",
+            "_private_setattr_handler": "_private_setattr_handler",
+            "_repr": "_repr",
+            "_typing_extra": "_typing_extra",
+            "_utils": "_utils",
+            "cached_property": "cached_property",
+            "cast": "cast",
+            "copy": "copy",
+            "create_model": "create_model",
+            "deepcopy": "deepcopy",
+            "getattr_migration": "getattr_migration",
+            "model_json_schema": "model_json_schema",
+            "operator": "operator",
+            "overload": "overload",
+            "pydantic_core": "pydantic_core",
+            "sys": "sys",
+            "types": "types",
+            "typing_extensions": "typing_extensions",
+            "warnings": "warnings"
+          },
+          "is_module_level": false,
+          "line": 251,
+          "locals": {
+            "data": {
+              "id": 2,
+              "is_mutable": true,
+              "is_sequence": false,
+              "length": 7,
+              "name": "data",
+              "repr": "<dict ref=2>",
+              "type": "dict",
+              "type_str": "dict",
+              "value": "ref:2"
+            },
+            "self": {
+              "id": 1,
+              "is_mutable": false,
+              "is_sequence": false,
+              "length": null,
+              "name": "self",
+              "repr": "<ExecutionStep ref=1>",
+              "type": "instance",
+              "type_str": "ExecutionStep",
+              "value": "ref:1"
+            },
+            "validated_self": {
+              "id": 1,
+              "is_mutable": false,
+              "is_sequence": false,
+              "length": null,
+              "name": "validated_self",
+              "repr": "<ExecutionStep ref=1>",
+              "type": "instance",
+              "type_str": "ExecutionStep",
+              "value": "ref:1"
+            }
+          },
+          "name": "__init__"
+        }
+      ],
+      "heap": [
+        {
+          "id": 1,
+          "length": null,
+          "references": [],
+          "repr": "<ExecutionStep object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "ExecutionStep",
+          "value": {
+            "class": "ExecutionStep"
+          }
+        },
+        {
+          "id": 4,
+          "length": null,
+          "references": [],
+          "repr": "<Frame object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "Frame",
+          "value": {
+            "class": "Frame"
+          }
+        },
+        {
+          "id": 5,
+          "length": null,
+          "references": [],
+          "repr": "<Frame object>",
+          "size": 72,
+          "type": "instance",
+          "type_str": "Frame",
+          "value": {
+            "class": "Frame"
+          }
+        },
+        {
+          "id": 3,
+          "length": 2,
+          "references": [
+            4,
+            5
+          ],
+          "repr": "[Frame(name='<module>', line=1, filename='<string>', locals={}, globals={'spawn_main': 'spawn_main'}, is_module_level=True), Frame(name='<module>', line=2, filename='<string>', locals={'x': Variable(n",
+          "size": 72,
+          "type": "list",
+          "type_str": "list",
+          "value": [
+            {
+              "__ref__": 4,
+              "__type__": "instance"
+            },
+            {
+              "__ref__": 5,
+              "__type__": "instance"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "length": 0,
+          "references": [],
+          "repr": "[]",
+          "size": 56,
+          "type": "list",
+          "type_str": "list",
+          "value": []
+        },
+        {
+          "id": 2,
+          "length": 7,
+          "references": [
+            3,
+            6
+          ],
+          "repr": "{'step': 5, 'line': 2, 'code': '', 'event': <ExecutionEvent.END: 'end'>, 'frames': [Frame(name='<module>', line=1, filename='<string>', locals={}, globals={'spawn_main': 'spawn_main'}, is_module_level",
+          "size": 272,
+          "type": "dict",
+          "type_str": "dict",
+          "value": {
+            "code": "",
+            "event": "ExecutionEvent.END",
+            "frames": {
+              "__ref__": 3,
+              "__type__": "list"
+            },
+            "heap": {
+              "__ref__": 6,
+              "__type__": "list"
+            },
+            "line": 2,
+            "stdout": "",
+            "step": 5
+          }
+        }
+      ],
+      "line": 251,
+      "memory_usage": null,
+      "stdout": "",
+      "step": 9,
+      "timestamp": 0.001092672348022461
+    },
+    {
+      "code": "",
+      "event": "end",
+      "event_data": null,
+      "exception": null,
+      "frames": [
+        {
+          "filename": "<string>",
+          "globals": {
+            "spawn_main": "spawn_main"
+          },
+          "is_module_level": true,
+          "line": 1,
+          "locals": {},
+          "name": "<module>"
+        },
+        {
+          "filename": "<string>",
+          "globals": {
+            "x": "x"
+          },
+          "is_module_level": true,
+          "line": 2,
+          "locals": {
+            "x": {
+              "id": null,
+              "is_mutable": false,
+              "is_sequence": false,
+              "length": null,
+              "name": "x",
+              "repr": "5",
+              "type": "int",
+              "type_str": "int",
+              "value": 5
+            }
+          },
+          "name": "<module>"
+        }
+      ],
+      "heap": [],
+      "line": 2,
+      "memory_usage": null,
+      "stdout": "",
+      "step": 5,
+      "timestamp": null
+    }
+  ],
+  "total_steps": 11
+}
+
