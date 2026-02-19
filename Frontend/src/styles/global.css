@@ -1,4 +1,4 @@
-/* src/styles/global.css */
+/* src/styles/global.css - Monochrome Purple Theme */
 @import './variables.css';
 
 * {
@@ -26,47 +26,46 @@ body {
   min-height: 100vh;
 }
 
-/* Scrollbar Styles */
+/* Monochrome Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--bg-secondary);
-  border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-color);
+  background: var(--neutral-700);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  background: var(--neutral-600);
 }
 
 /* Selection */
 ::selection {
-  background: var(--python-blue);
-  color: white;
+  background: var(--accent-muted);
+  color: var(--accent-light);
 }
 
 /* Focus Styles */
 *:focus-visible {
-  outline: 2px solid var(--python-blue-light);
+  outline: 2px solid var(--accent-primary);
   outline-offset: 2px;
 }
 
 /* Links */
 a {
-  color: var(--python-blue-light);
+  color: var(--accent-primary);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 a:hover {
-  color: var(--python-yellow);
+  color: var(--accent-light);
 }
 
 /* Buttons */

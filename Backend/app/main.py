@@ -5,7 +5,6 @@ from flask_cors import CORS
 from flask_socketio import SocketIO
 
 from app.config import settings
-from app.db.firebase_client import init_firebase
 from app.utils.logger import setup_logging
 
 # Setup logging
@@ -34,30 +33,23 @@ socketio = SocketIO(
 # ------------------------------------------------------------------
 # Register blueprints (imported after app creation to avoid circular deps)
 # ------------------------------------------------------------------
-from app.api.v1.endpoints.auth import auth_bp         # noqa: E402
 from app.api.v1.endpoints.execution import execution_bp  # noqa: E402
 from app.api.v1.endpoints.sessions import sessions_bp    # noqa: E402
 from app.api.v1.endpoints.health import health_bp        # noqa: E402
+from app.api.v1.endpoints.stream import stream_bp        # noqa: E402
 
-app.register_blueprint(auth_bp, url_prefix="/api/v1")
 app.register_blueprint(execution_bp, url_prefix="/api/v1")
 app.register_blueprint(sessions_bp, url_prefix="/api/v1")
 app.register_blueprint(health_bp, url_prefix="/api/v1")
+app.register_blueprint(stream_bp, url_prefix="/api/v1")
 
-# Register WebSocket events
-from app.api.v1 import websocket as ws_module  # noqa: E402
-ws_module.register_events(socketio)
+# Note: WebSocket events removed - using SSE/HTTP alternatives instead
 
 
 @app.before_request
 def _startup_once():
     """Lazy one-time initialisation on first request (replaces lifespan)."""
     if not getattr(app, "_pi_tracer_ready", False):
-        try:
-            init_firebase()
-            print(f"🔥 Firebase connected")
-        except Exception as exc:
-            print(f"⚠️  Firebase init skipped: {exc}")
         print(f"🚀 {settings.APP_NAME} v{settings.VERSION} starting...")
         print(f"📡 WebSocket: ws://localhost:{settings.PORT}/socket.io")
         app._pi_tracer_ready = True

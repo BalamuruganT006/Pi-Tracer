@@ -13,7 +13,6 @@ from app.models.execution import (
     ExecutionRequest,
     ExecutionResponse,
 )
-from app.dependencies import extract_uid
 from app.services.executor import execution_service
 from app.services.session_manager import session_manager
 from app.utils.logger import get_logger
@@ -31,7 +30,7 @@ def execute_code():
     except Exception as exc:
         return jsonify(error=str(exc)), 422
 
-    uid = extract_uid()
+    uid = None  # No authentication required
     client_ip = request.remote_addr or "unknown"
     user_agent = request.headers.get("User-Agent", "")
 

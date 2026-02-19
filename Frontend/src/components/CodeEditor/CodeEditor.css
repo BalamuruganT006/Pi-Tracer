@@ -1,33 +1,43 @@
-/* src/components/CodeEditor/CodeEditor.css */
+/* CodeEditor - Monochrome Purple */
 .monaco-editor-container {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: var(--bg-secondary);
-  border-radius: var(--radius-lg);
+  background: #0c0c0f;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border-light);
+  border: none;
 }
 
 .editor-header {
-  padding: 12px 20px;
-  background: var(--bg-tertiary);
-  border-bottom: 1px solid var(--border-light);
+  padding: 10px 16px;
+  background: #101014;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.05);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .editor-filename {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  font-weight: 500;
+  color: #a855f7;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.editor-filename::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #a855f7;
+  border-radius: 50%;
 }
 
 .editor-hint {
-  color: var(--text-muted);
-  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.75rem;
 }
 
 .editor-wrapper {
@@ -37,20 +47,21 @@
 }
 
 .editor-toolbar {
-  padding: 12px 20px;
-  background: var(--bg-tertiary);
-  border-top: 1px solid var(--border-light);
+  padding: 10px 16px;
+  background: #101014;
+  border-top: 1px solid rgba(168, 85, 247, 0.05);
   display: flex;
   gap: 10px;
 }
 
 .run-btn {
-  padding: 10px 24px;
-  background: linear-gradient(135deg, #306998 0%, #61dafb 100%);
+  padding: 10px 20px;
+  background: #a855f7;
   border: none;
-  border-radius: var(--radius-md);
+  border-radius: 8px;
   color: white;
   font-weight: 600;
+  font-size: 0.85rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -59,25 +70,45 @@
 }
 
 .run-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(48, 105, 152, 0.3);
+  background: #9333ea;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(168, 85, 247, 0.25);
 }
 
 .run-icon {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
 
 .clear-btn {
   padding: 10px 16px;
   background: transparent;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  color: var(--text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .clear-btn:hover {
-  border-color: var(--text-primary);
-  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* Monaco Editor Clipboard/Copy Icon */
+.monaco-editor .codicon {
+  color: rgba(168, 85, 247, 0.5) !important;
+}
+
+.monaco-editor .codicon:hover {
+  color: rgba(168, 85, 247, 0.8) !important;
+}
+
+/* Editor action icons */
+.monaco-editor .monaco-action-bar .action-item .codicon {
+  color: rgba(168, 85, 247, 0.5) !important;
+}
+
+.monaco-editor .monaco-action-bar .action-item .codicon:hover {
+  color: rgba(168, 85, 247, 0.8) !important;
 }

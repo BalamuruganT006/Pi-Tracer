@@ -1,4 +1,4 @@
-/* src/components/common/common.css */
+/* src/components/common/common.css - Monochrome Purple */
 .btn-icon {
   display: inline-flex;
   align-items: center;
@@ -24,12 +24,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .loading-spinner {
-  border: 3px solid var(--border-color);
-  border-top-color: var(--python-blue-light);
+  border: 3px solid rgba(168, 85, 247, 0.15);
+  border-top-color: #a855f7;
   border-radius: 50%;
   animation: rotate 0.8s linear infinite;
 }
@@ -52,4 +52,9 @@
 .loading-text {
   color: var(--text-secondary);
   font-size: 0.9rem;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

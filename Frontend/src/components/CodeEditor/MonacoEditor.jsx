@@ -22,25 +22,37 @@ export default function MonacoEditor({ value, onChange, onRun }) {
   const handleEditorDidMount = useCallback((editor, monaco) => {
     editorRef.current = editor
     
-    // Define custom theme
+    // Define custom theme - Monochrome Purple
     monaco.editor.defineTheme('piTracerDark', {
       base: 'vs-dark',
       inherit: true,
       rules: [
-        { token: 'keyword', foreground: '#ff79c6', fontStyle: 'bold' },
-        { token: 'string', foreground: '#f1fa8c' },
-        { token: 'number', foreground: '#bd93f9' },
-        { token: 'comment', foreground: '#6272a4', fontStyle: 'italic' },
-        { token: 'function', foreground: '#50fa7b' },
-        { token: 'variable', foreground: '#f8f8f2' },
-        { token: 'type', foreground: '#8be9fd' },
+        { token: 'keyword', foreground: '#a855f7', fontStyle: 'bold' },
+        { token: 'string', foreground: '#c084fc' },
+        { token: 'number', foreground: '#d8b4fe' },
+        { token: 'comment', foreground: '#52525b', fontStyle: 'italic' },
+        { token: 'function', foreground: '#c084fc' },
+        { token: 'variable', foreground: '#e4e4e7' },
+        { token: 'type', foreground: '#e9d5ff' },
+        { token: 'operator', foreground: '#a855f7' },
       ],
       colors: {
-        'editor.background': '#1e1e2e',
-        'editor.lineHighlightBackground': '#2a2a3e',
-        'editorLineNumber.foreground': '#6272a4',
-        'editor.selectionBackground': '#44475a',
-        'editor.inactiveSelectionBackground': '#44475a80',
+        'editor.background': '#0a0a0d',
+        'editor.lineHighlightBackground': '#101014',
+        'editorLineNumber.foreground': '#52525b',
+        'editorLineNumber.activeForeground': '#a855f7',
+        'editor.selectionBackground': 'rgba(168, 85, 247, 0.2)',
+        'editor.inactiveSelectionBackground': 'rgba(168, 85, 247, 0.1)',
+        'editorCursor.foreground': '#a855f7',
+        'editor.findMatchBackground': 'rgba(168, 85, 247, 0.3)',
+        'editor.findMatchHighlightBackground': 'rgba(168, 85, 247, 0.15)',
+        'editorWidget.background': '#101014',
+        'editorWidget.border': 'rgba(168, 85, 247, 0.1)',
+        'input.background': '#101014',
+        'input.border': 'rgba(168, 85, 247, 0.1)',
+        'scrollbarSlider.background': 'rgba(168, 85, 247, 0.1)',
+        'scrollbarSlider.hoverBackground': 'rgba(168, 85, 247, 0.2)',
+        'scrollbarSlider.activeBackground': 'rgba(168, 85, 247, 0.3)',
       }
     })
     

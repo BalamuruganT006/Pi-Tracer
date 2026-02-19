@@ -7,7 +7,6 @@ from typing import Any, Dict, Optional
 
 from flask import Blueprint, request, jsonify
 
-from app.dependencies import extract_uid
 from app.services.session_manager import session_manager
 
 sessions_bp = Blueprint("sessions", __name__)
@@ -46,8 +45,8 @@ def delete_session(session_id: str):
 
 @sessions_bp.route("/sessions")
 def list_sessions():
-    """List recent sessions (filtered by user when authenticated)."""
+    """List recent sessions (no authentication required)."""
     limit = request.args.get("limit", 50, type=int)
-    uid = extract_uid()
+    uid = None  # No authentication
     sessions = _run(session_manager.list_sessions(limit, uid=uid))
     return jsonify(sessions=[s.model_dump(mode="json") for s in sessions])

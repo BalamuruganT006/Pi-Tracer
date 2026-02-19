@@ -1,4 +1,4 @@
-"""Session storage – Firestore-backed persistence."""
+"""Session storage – In-memory implementation."""
 
 from __future__ import annotations
 
@@ -6,17 +6,17 @@ import uuid
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
-from app.db.firebase_client import get_firestore
 from app.models.execution import ExecutionSession, ExecutionStatus
 from app.utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-_COLLECTION = "sessions"
-
 
 class SessionManager:
-    """Manages execution sessions persisted in Firestore."""
+    """Manages execution sessions in memory."""
+
+    def __init__(self):
+        self._sessions: Dict[str, ExecutionSession] = {}
 
     # ------------------------------------------------------------------
     # Create

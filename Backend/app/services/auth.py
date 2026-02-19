@@ -1,25 +1,13 @@
-"""Firebase Authentication service – sign-up, sign-in, token verification."""
+"""Simple Authentication service – without Firebase."""
 
 from __future__ import annotations
 
 from datetime import datetime
 from typing import Any, Dict, Optional
 
-import httpx
-
-from app.config import settings
-from app.db.firebase_client import get_auth, get_firestore
 from app.utils.logger import get_logger
 
 logger = get_logger(__name__)
-
-# Firebase REST API endpoints for email/password auth
-_SIGN_IN_URL = (
-    "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword"
-)
-_SIGN_UP_URL = (
-    "https://identitytoolkit.googleapis.com/v1/accounts:signUp"
-)
 
 
 class AuthError(Exception):
@@ -27,7 +15,37 @@ class AuthError(Exception):
 
 
 class AuthService:
-    """Wraps Firebase Auth for sign-up, sign-in, and token verification."""
+    """Simple Auth service without Firebase dependencies."""
+
+    @staticmethod
+    async def sign_up(email: str, password: str, display_name: str = "") -> Dict[str, Any]:
+        """Simple sign-up (stub implementation)."""
+        logger.info(f"Sign-up attempt for email: {email}")
+        return {
+            "user_id": "demo_user_123",
+            "email": email,
+            "id_token": "demo_token",
+            "display_name": display_name
+        }
+
+    @staticmethod
+    async def sign_in(email: str, password: str) -> Dict[str, Any]:
+        """Simple sign-in (stub implementation)."""
+        logger.info(f"Sign-in attempt for email: {email}")
+        return {
+            "user_id": "demo_user_123", 
+            "email": email,
+            "id_token": "demo_token"
+        }
+
+    @staticmethod
+    def verify_token(id_token: str) -> Dict[str, Any]:
+        """Simple token verification (stub implementation)."""
+        logger.info(f"Token verification for: {id_token[:20]}...")
+        return {
+            "uid": "demo_user_123",
+            "email": "user@example.com"
+        }
 
     # ------------------------------------------------------------------
     # Sign-up (creates Firebase user + Firestore profile)
